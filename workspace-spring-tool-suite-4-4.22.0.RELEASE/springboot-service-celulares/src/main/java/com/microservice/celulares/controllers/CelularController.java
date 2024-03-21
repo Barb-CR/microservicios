@@ -26,7 +26,10 @@ public class CelularController {
 		return service.findAll(); /** Mas a delante se hara la conexion de datos */
 		
 	}
-	
+	@GetMapping("/celular/{id}")		/** Elimina id*/
+	public Celular detail(@PathVariable Long id){
+		return service.findById(id);
+	}
 	@DeleteMapping("/celular/{id}")		/** Elimina id*/
 	public ResponseEntity<Void> drop(@PathVariable Long id){
 		service.deleteById(id);
