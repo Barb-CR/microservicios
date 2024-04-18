@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "celulares")
@@ -32,6 +33,19 @@ public class Celular implements Serializable {
 	@Column(name= "created_at")
 	@Temporal(TemporalType.TIMESTAMP) /** Pone limite mas preciso de dia y tiempo*/
 	private Date createdAt;
+
+	@Transient /** Variable que no afecta a la base de datos*/
+	private Integer port;
+	
+	
+	public Integer getPort() {
+		return port;
+	}
+
+	public void setPort(Integer port) {
+		this.port = port;
+	}
+	
 
 	public Long getId() {
 		return id;		/** Gets and sets, para ponerlo facil click derecho al primer atributo, 

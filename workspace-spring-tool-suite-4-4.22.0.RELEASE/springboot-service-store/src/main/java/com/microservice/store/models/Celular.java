@@ -10,7 +10,14 @@ public class Celular {
 	private String marca;
 	
 	private Date createdAt;
+	
 
+	public Celular (Long id, String name, String marca) {
+		this.id= id;
+		this.name= name;
+		this.marca= marca;
+		
+	}
 	public Long getId() {
 		return id;
 	}

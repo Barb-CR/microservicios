@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservice.store.models.Celular;
 import com.microservice.store.models.Store;
 import com.microservice.store.services.StoreService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 public class StoreController {
@@ -22,8 +24,20 @@ public class StoreController {
 		return storeService.findAll();
 	}
 	
+	@HystrixCommand(fallbackMethod="metodoGenerico")
 	@GetMapping("/celular/{id}/cantidad/{cantidad}")
 	public Store details(@PathVariable Long id, @PathVariable Integer cantidad) {
 		return storeService.findById(id,cantidad);
 	}
+	
+	public Store metodoGenerico(Long id, Integer cantidad) {
+		Store store=  new Store();
+		Celular cel = new Celular(id,"el cel","samsung");
+		
+		store.setCel(cel);
+		store.setCantidad(cantidad);
+		return store;
+	}
+	
 }
+			
