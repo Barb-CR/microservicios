@@ -19,6 +19,7 @@ public class StoreController {
 	@Autowired 
 	@Qualifier("serviceRest")
 	private StoreService storeService;
+	
 	@GetMapping("/list")
 	public List<Store> list(){
 		return storeService.findAll();

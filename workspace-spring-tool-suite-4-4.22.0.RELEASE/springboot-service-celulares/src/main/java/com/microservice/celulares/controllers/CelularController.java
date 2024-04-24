@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,13 +24,16 @@ public class CelularController {
 	@Autowired
 	private CelularService service;
 	
+	@Autowired
+	private Environment env;
+	
 	@Value("${server.port}")
 	private Integer port;
 	
 	@GetMapping("/list")	/** Busca */
 	public List<Celular> list(){
 		return service.findAll().stream().map(cel ->{
-			cel.setPort(port);
+			cel.setPort(Integer.parseInt(env.getProperty("local.server.port")));
 			return cel;
 		}).collect(Collectors.toList()); /** Mas a delante se hara la conexion de datos */
 		
@@ -38,11 +42,12 @@ public class CelularController {
 	public Celular detail(@PathVariable Long id){
 		
 		try {
-				Thread.sleep(2000L); /** espera n cantidad de segundos para retornar la peticion que queremos*/
-		}catch(InterruptedException e) {
-			e.printStackTrace();
-		}return service.findById(id);
+			Thread.sleep(2000L); /** espera n cantidad de segundos para retornar la peticion que queremos*/
+	}catch(InterruptedException e) {
+		e.printStackTrace();
+		} return service.findById(id);
 	}
+	
 	@DeleteMapping("/celular/{id}")		/** Elimina id*/
 	public ResponseEntity<Void> drop(@PathVariable Long id){
 		service.deleteById(id);

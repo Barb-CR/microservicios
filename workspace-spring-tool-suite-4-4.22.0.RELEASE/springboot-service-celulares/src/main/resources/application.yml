@@ -1,5 +1,5 @@
 server:
- port: ${PORT:0}
+ port: 8081
 spring:
  application:
   name: service-celulares
@@ -11,4 +11,4 @@ eureka:
    service-url:
      default-Zone: http://localhost:8761/eureka
   instance:
-    instance-id: ${sping.application.name}:${spring.application.instance_id:${random.value}}
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

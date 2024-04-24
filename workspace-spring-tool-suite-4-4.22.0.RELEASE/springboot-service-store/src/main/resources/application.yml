@@ -9,12 +9,12 @@ eureka:
      default-Zone: http://localhost:8761/eureka
 ribbon:
  ConnectTimeout: 3000
- ReadTimeout: 1000
+ ReadTimeout: 10000
 hystrix:
   command:
     default:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 2000
+            timeoutInMilliseconds: 40000
  
